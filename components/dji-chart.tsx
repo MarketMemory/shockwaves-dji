@@ -18,6 +18,7 @@ export function DJIChart({ data, interval, isLogScale, chartType, theme, isLoadi
   const [userWaves, setUserWaves] = useState<any[]>([])
   const [selectedWaveDegree, setSelectedWaveDegree] = useState("Primary")
   const [selectedWaveType, setSelectedWaveType] = useState("1")
+  const [resetTrigger, setResetTrigger] = useState(0)
 
   const filteredData = useMemo(() => {
     if (!data || data.length === 0) return []
@@ -45,14 +46,16 @@ export function DJIChart({ data, interval, isLogScale, chartType, theme, isLoadi
         return data
     }
 
-    return data.filter((item) => {
-      try {
-        const itemDate = new Date(item.date)
-        return !isNaN(itemDate.getTime()) && itemDate >= startDate
-      } catch {
-        return false
-      }
-    })
+    return data
+      .filter((item) => {
+        try {
+          const itemDate = new Date(item.date)
+          return !isNaN(itemDate.getTime()) && itemDate >= startDate
+        } catch {
+          return false
+        }
+      })
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
   }, [data, interval])
 
   const handleChartClick = (event: any) => {
@@ -71,23 +74,6 @@ export function DJIChart({ data, interval, isLogScale, chartType, theme, isLoadi
 
   const removeUserWave = (id: number) => {
     setUserWaves(userWaves.filter((wave) => wave.id !== id))
-  }
-
-  if (chartType === "candlestick") {
-    return (
-      <CandlestickChart
-        data={filteredData}
-        isLogScale={isLogScale}
-        theme={theme}
-        onChartClick={handleChartClick}
-        userWaves={userWaves}
-        onRemoveWave={removeUserWave}
-        selectedWaveDegree={selectedWaveDegree}
-        selectedWaveType={selectedWaveType}
-        onWaveDegreeChange={setSelectedWaveDegree}
-        onWaveTypeChange={setSelectedWaveType}
-      />
-    )
   }
 
   return (
@@ -150,13 +136,56 @@ export function DJIChart({ data, interval, isLogScale, chartType, theme, isLoadi
         </div>
       )}
 
-      <SimpleChart
-        data={filteredData}
-        interval={interval}
-        isLogScale={isLogScale}
-        theme={theme}
-        isLoading={isLoading}
-      />
+      {/* Fit to Screen Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={() => setResetTrigger((prev) => prev + 1)}
+          className="bg-gray-800 hover:bg-gray-700 text-gray-300 p-1 rounded"
+          title="Fit to Screen"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <path d="M7 7h10v10H7z"></path>
+          </svg>
+        </button>
+      </div>
+
+      {chartType === "candlestick" ? (
+        <CandlestickChart
+          data={filteredData}
+          isLogScale={isLogScale}
+          theme={theme}
+          onChartClick={handleChartClick}
+          userWaves={userWaves}
+          onRemoveWave={removeUserWave}
+          selectedWaveDegree={selectedWaveDegree}
+          selectedWaveType={selectedWaveType}
+          onWaveDegreeChange={setSelectedWaveDegree}
+          onWaveTypeChange={setSelectedWaveType}
+          resetTrigger={resetTrigger}
+          height="calc(100vh-100px)"
+        />
+      ) : (
+        <SimpleChart
+          data={filteredData}
+          interval={interval}
+          isLogScale={isLogScale}
+          theme={theme}
+          isLoading={isLoading}
+          resetTrigger={resetTrigger}
+          height="calc(100vh-100px)"
+        />
+      )}
     </div>
   )
 }

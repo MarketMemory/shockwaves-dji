@@ -171,7 +171,16 @@ export const historicalData = [
   { date: "1980-01-01", open: 838, high: 1000, low: 759, close: 838.74, volume: 0 },
   { date: "1987-10-19", open: 2247, high: 2247, low: 1739, close: 1738.74, volume: 608120000 }, // Black Monday
   { date: "1990-01-01", open: 2753, high: 2999, low: 2365, close: 2753.2, volume: 0 },
-  { date: "2000-01-14", open: 11723, high: 11750, low: 11400, close: 11722.98, volume: 0 }, // Dot-com piek
+  { date: "2000-01-14", open: 11722.98, high: 11722.98, low: 11722.98, close: 11722.98, volume: 0 },
+  { date: "2005-01-01", open: 10783.75, high: 10783.75, low: 10783.75, close: 10783.75, volume: 0 },
+  { date: "2009-03-09", open: 6547.05, high: 6547.05, low: 6547.05, close: 6547.05, volume: 0 },
+  { date: "2010-01-01", open: 10428.05, high: 10428.05, low: 10428.05, close: 10428.05, volume: 0 },
+  { date: "2015-01-01", open: 17823.07, high: 17823.07, low: 17823.07, close: 17823.07, volume: 0 },
+  { date: "2020-01-01", open: 28634.88, high: 28634.88, low: 28634.88, close: 28634.88, volume: 0 },
+  { date: "2020-03-31", open: 21917.16, high: 21917.16, low: 21917.16, close: 21917.16, volume: 0 },
+  { date: "2020-12-31", open: 30606.48, high: 30606.48, low: 30606.48, close: 30606.48, volume: 0 },
+  { date: "2024-12-31", open: 42520.53, high: 42520.53, low: 42520.53, close: 42520.53, volume: 0 },
+  { date: "2025-06-06", open: 42762.87, high: 42762.87, low: 42762.87, close: 42762.87, volume: 0 }
 ]
 
 export const candlestickData = [
@@ -182,7 +191,14 @@ export const candlestickData = [
   { date: "2002-10-09", open: 7286, high: 7400, low: 7200, close: 7286.27, volume: 1800000000 },
   { date: "2007-10-09", open: 14164, high: 14200, low: 14100, close: 14164.53, volume: 900000000 },
   { date: "2008-09-29", open: 10365, high: 10400, low: 9800, close: 10365.45, volume: 2500000000 },
-  { date: "2009-03-09", open: 6547, high: 6600, low: 6440, close: 6547.05, volume: 2200000000 },
+  { date: "2009-03-09", open: 6547.05, high: 6547.05, low: 6547.05, close: 6547.05, volume: 0 },
+  { date: "2010-01-01", open: 10428.05, high: 10428.05, low: 10428.05, close: 10428.05, volume: 0 },
+  { date: "2015-01-01", open: 17823.07, high: 17823.07, low: 17823.07, close: 17823.07, volume: 0 },
+  { date: "2020-01-01", open: 28634.88, high: 28634.88, low: 28634.88, close: 28634.88, volume: 0 },
+  { date: "2020-03-31", open: 21917.16, high: 21917.16, low: 21917.16, close: 21917.16, volume: 0 },
+  { date: "2020-12-31", open: 30606.48, high: 30606.48, low: 30606.48, close: 30606.48, volume: 0 },
+  { date: "2024-12-31", open: 42520.53, high: 42520.53, low: 42520.53, close: 42520.53, volume: 0 },
+  { date: "2025-06-06", open: 42762.87, high: 42762.87, low: 42762.87, close: 42762.87, volume: 0 },
 
   // 2010s Data
   { date: "2010-05-06", open: 10520, high: 10520, low: 9869, close: 10520.32, volume: 1900000000 },
@@ -200,10 +216,13 @@ export const candlestickData = [
   { date: "2023-01-01", open: 33147, high: 33300, low: 33000, close: 33147.25, volume: 1200000000 },
   { date: "2024-01-01", open: 37689, high: 37800, low: 37500, close: 37689.54, volume: 1000000000 },
   { date: "2024-03-15", open: 39781, high: 39900, low: 39600, close: 39781.37, volume: 950000000 },
+  { date: "2024-12-31", open: 42520.53, high: 42520.53, low: 42520.53, close: 42520.53, volume: 0 },
+  { date: "2025-06-06", open: 42762.87, high: 42762.87, low: 42762.87, close: 42762.87, volume: 0 },
 
   // Voeg meer recente data toe tot de huidige ~45.000 punten
   { date: "2024-06-01", open: 38500, high: 39200, low: 38300, close: 38900.15, volume: 850000000 },
   { date: "2024-09-01", open: 40200, high: 41500, low: 39800, close: 41200.5, volume: 900000000 },
   { date: "2024-12-01", open: 43800, high: 45200, low: 43500, close: 44800.75, volume: 1100000000 },
-  { date: "2025-01-01", open: 44900, high: 45124, low: 44600, close: 45000.0, volume: 950000000 }, // Huidige niveau
+  { date: "2025-01-01", open: 44900, high: 45124, low: 44600, close: 45000.0, volume: 950000000 },
+  { date: "2025-06-06", open: 42762.87, high: 42762.87, low: 42762.87, close: 42762.87, volume: 0 }, // Huidige niveau
 ]

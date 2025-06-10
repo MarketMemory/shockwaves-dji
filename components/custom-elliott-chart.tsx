@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Waves, TrendingUp } from "lucide-react"
 
-// Historical data (1896–2000)
+// Historical data (1896–2025)
 const historicalData = [
   { date: "1896-05-26", open: 28.89, high: 28.89, low: 28.89, close: 28.89, volume: 0 },
   { date: "1900-01-01", open: 66.08, high: 66.08, low: 66.08, close: 66.08, volume: 0 },
@@ -34,7 +34,16 @@ const historicalData = [
   { date: "1987-10-19", open: 1738.74, high: 1738.74, low: 1738.74, close: 1738.74, volume: 0 },
   { date: "1990-01-01", open: 2753.2, high: 2753.2, low: 2753.2, close: 2753.2, volume: 0 },
   { date: "1995-01-01", open: 5117.12, high: 5117.12, low: 5117.12, close: 5117.12, volume: 0 },
-  { date: "2000-01-14", open: 11722.98, high: 11722.98, low: 11722.98, close: 11722.98, volume: 0 }
+  { date: "2000-01-14", open: 11722.98, high: 11722.98, low: 11722.98, close: 11722.98, volume: 0 },
+  { date: "2005-01-01", open: 10783.75, high: 10783.75, low: 10783.75, close: 10783.75, volume: 0 },
+  { date: "2009-03-09", open: 6547.05, high: 6547.05, low: 6547.05, close: 6547.05, volume: 0 },
+  { date: "2010-01-01", open: 10428.05, high: 10428.05, low: 10428.05, close: 10428.05, volume: 0 },
+  { date: "2015-01-01", open: 17823.07, high: 17823.07, low: 17823.07, close: 17823.07, volume: 0 },
+  { date: "2020-01-01", open: 28634.88, high: 28634.88, low: 28634.88, close: 28634.88, volume: 0 },
+  { date: "2020-03-31", open: 21917.16, high: 21917.16, low: 21917.16, close: 21917.16, volume: 0 },
+  { date: "2020-12-31", open: 30606.48, high: 30606.48, low: 30606.48, close: 30606.48, volume: 0 },
+  { date: "2024-12-31", open: 42520.53, high: 42520.53, low: 42520.53, close: 42520.53, volume: 0 },
+  { date: "2025-06-06", open: 42762.87, high: 42762.87, low: 42762.87, close: 42762.87, volume: 0 }
 ]
 
 interface CustomElliottChartProps {
@@ -55,6 +64,9 @@ export function CustomElliottChart({ data }: CustomElliottChartProps) {
     { date: "1965-01-01", type: "3", label: "Wave 3", description: "Krachtige bull markt" },
     { date: "1974-12-06", type: "4", label: "Wave 4", description: "Bear markt correctie" },
     { date: "2000-01-14", type: "5", label: "Wave 5", description: "Dot-com piek" },
+    { date: "2009-03-09", type: "1", label: "Wave 1 Start", description: "Herstel na financiële crisis" },
+    { date: "2020-03-31", type: "2", label: "Wave 2", description: "COVID-19 correctie" },
+    { date: "2025-06-06", type: "3", label: "Wave 3", description: "Huidige bull markt" },
   ]
 
   const fibonacciLevels = [

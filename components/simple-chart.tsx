@@ -15,6 +15,7 @@ import {
 } from "recharts"
 import { format } from "date-fns"
 import { crashEvents, elliottWaves } from "@/data/crash-data"
+import { useState } from "react"
 
 interface SimpleChartProps {
   data: any[]
@@ -61,9 +62,11 @@ const CandlestickBar = (props: any) => {
 }
 
 export function SimpleChart({ data, interval, isLogScale, theme, chartType }: SimpleChartProps) {
+  const [resetTrigger, setResetTrigger] = useState(0)
+
   if (!data || data.length === 0) {
     return (
-      <div className="h-96 flex items-center justify-center">
+      <div className="h-[calc(100vh-100px)] flex items-center justify-center">
         <p className="text-gray-400">No data available</p>
       </div>
     )
@@ -140,6 +143,19 @@ export function SimpleChart({ data, interval, isLogScale, theme, chartType }: Si
     volume: Number(item.volume) || 0,
   }))
 
+  // Calculate dynamic Y-axis domain with padding
+  const getYDomain = () => {
+    const prices = chartType === "candlestick" 
+      ? chartData.flatMap((item) => [item.low, item.high])
+      : chartData.map((item) => item.close)
+    const minPrice = Math.min(...prices)
+    const maxPrice = Math.max(...prices)
+    const padding = (maxPrice - minPrice) * 0.02 // Verlaagd van impliciete standaard naar 0.02
+    return isLogScale 
+      ? [minPrice > 0 ? minPrice : "dataMin", "dataMax"]
+      : [minPrice - padding, maxPrice + padding]
+  }
+
   // Common chart props
   const commonProps = {
     data: chartData,
@@ -153,9 +169,10 @@ export function SimpleChart({ data, interval, isLogScale, theme, chartType }: Si
       <XAxis dataKey="date" tickFormatter={formatXAxisLabel} stroke={colors.text} fontSize={12} />
       <YAxis
         scale={isLogScale ? "log" : "linear"}
-        domain={isLogScale ? ["dataMin", "dataMax"] : ["auto", "auto"]}
+        domain={getYDomain()}
         stroke={colors.text}
         fontSize={12}
+        tickFormatter={(value) => value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value.toFixed(0)}
       />
       <Tooltip
         labelFormatter={(label) => {
@@ -229,18 +246,18 @@ export function SimpleChart({ data, interval, isLogScale, theme, chartType }: Si
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-1">
                 <div className="w-3 h-3 bg-green-500"></div>
-                <span className="text-xs">Bullish (Close &gt; Open)</span>
+                <span className="text-xs">Bullish (Close > Open)</span>
               </div>
               <div className="flex items-center space-x-1">
                 <div className="w-3 h-3 border border-red-500"></div>
-                <span className="text-xs">Bearish (Close &lt; Open)</span>
+                <span className="text-xs">Bearish (Close < Open)</span>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      <div className="h-96">
+      <div className="relative h-[calc(100vh-100px)]">
         <ResponsiveContainer width="100%" height="100%">
           {chartType === "candlestick" ? (
             <ComposedChart {...commonProps}>
@@ -254,7 +271,7 @@ export function SimpleChart({ data, interval, isLogScale, theme, chartType }: Si
                   dataKey="close"
                   data={[entry]}
                   stroke={entry.color}
-                  dot={false}
+                  dot={<CandlestickBar />}
                   activeDot={false}
                   isAnimationActive={false}
                 />
@@ -294,6 +311,29 @@ export function SimpleChart({ data, interval, isLogScale, theme, chartType }: Si
             </AreaChart>
           )}
         </ResponsiveContainer>
+        {/* Fit to Screen Button */}
+        <div className="absolute bottom-4 right-4 flex space-x-2">
+          <button
+            onClick={() => setResetTrigger((prev) => prev + 1)}
+            className="bg-gray-800 hover:bg-gray-700 text-gray-300 p-1 rounded"
+            title="Fit to Screen"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <path d="M7 7h10v10H7z"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   )
